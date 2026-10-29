@@ -1,0 +1,37 @@
+[
+  {
+    "model": "cities.city",
+    "pk": 1,
+    "fields": {
+      "name": "Recife"
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 2,
+    "fields": {
+      "name": "Olinda"
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 3,
+    "fields": {
+      "name": "São Paulo"
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 4,
+    "fields": {
+      "name": "Rio de Janeiro"
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 5,
+    "fields": {
+      "name": "Salvador"
+    }
+  }
+]
