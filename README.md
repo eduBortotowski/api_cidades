@@ -1,121 +1,97 @@
-# api_cidades
+[PYTHON_BADGE]: https://img.shields.io/badge/Python-3.12%2B-blue?style=for-the-badge&logo=python&logoColor=lightskyblue
+[DJANGO_BADGE]: https://img.shields.io/badge/Django-6.1.1-092E20?style=for-the-badge&logo=django&logoColor=white
+[DRF_BADGE]: https://img.shields.io/badge/DRF-3.18.1-a30000?style=for-the-badge&logo=django&logoColor=white
+[PRS_BADGE]: https://img.shields.io/badge/PRs-welcome-green?style=for-the-badge
 
-![GitHub repo size](https://img.shields.io/github/repo-size/eduBortotowski/api_cidades?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/eduBortotowski/api_cidades?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/eduBortotowski/api_cidades?style=for-the-badge)
-![GitHub open issues](https://img.shields.io/github/issues/eduBortotowski/api_cidades?style=for-the-badge)
-![GitHub open pull requests](https://img.shields.io/github/issues-pr/eduBortotowski/api_cidades?style=for-the-badge)
+<h1 align="center" style="font-weight: bold;">API Cidades 💻</h1>
 
-> ⚠️ Não identificado no código — confirmar com o time. Nenhuma imagem de capa no repositório.
+![python][PYTHON_BADGE]
+![django][DJANGO_BADGE]
+![drf][DRF_BADGE]
 
-> API REST somente leitura de cidades, em Django e Django REST Framework.
-> Expõe `CityViewSet` (`ReadOnlyModelViewSet`): listar e detalhar o model `City` (`id`, `name`).
-> Prefixo `api/`; banco SQLite (`db.sqlite3`). Sem create/update/delete.
+<details open="open">
+<summary>Sumário</summary>
 
-## Ajustes e melhorias
+- [🚀 Getting started](#started)
+  - [Prerequisites](#prerequisites)
+  - [Cloning](#cloning)
+  - [Starting](#starting)
+- [📍 API Endpoints](#routes)
+  - [GET /api/cities/](#get-cities-list)
+  - [GET /api/cities/{id}/](#get-cities-detail)
+- [🤝 Collaborators](#colab)
+- [📫 Contribute](#contribute)
+- [Informações adicionais](#informações-adicionais)
 
-O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas para as seguintes tarefas:
+</details>
 
-- [x] `GET /api/cities/` (`CityViewSet` + testes em `cities/tests.py`)
-- [x] `GET /api/cities/{id}/` (`ReadOnlyModelViewSet.retrieve`; sem teste)
-- [x] Model `City` (`name`, `Meta.ordering = ["name"]`) e serializer (`id`, `name`)
-- [x] Migration inicial (`cities/migrations/0001_initial.py`) e fixture `cities/fixtures/cities.json`
-- [ ] Teste de detalhe `GET /api/cities/{id}/`
-- [ ] OpenAPI/Swagger
-- [ ] Paginação (`REST_FRAMEWORK` ausente em `setup/settings.py`)
-- [ ] Autenticação/autorização customizada
-- [ ] Docker / Compose
-- [ ] Registro de `City` no admin (`cities/admin.py` vazio)
+<h2 id="started">🚀 Getting started</h2>
 
-## 💻 Pré-requisitos
+How to run the project locally.
 
-Antes de começar, verifique se você atendeu aos seguintes requisitos:
+<h3 id="prerequisites">Prerequisites</h3>
 
-- Python: versão **não pinada** em `requirements.txt` nem em manifesto.
-
-  > ⚠️ Não identificado no código — confirmar com o time. (`CLAUDE.MD` cita Python 3.12+; isso não está pinado.)
-
-- Pacotes em `requirements.txt`:
-
-  | Pacote | Versão |
-  |---|---|
-  | Django | 6.1.1 |
-  | djangorestframework | 3.18.1 |
-  | asgiref | 3.12.1 |
-  | sqlparse | 0.6.0 |
-
-- Sistema operacional:
-
-  > ⚠️ Não identificado no código — confirmar com o time.
-
-- Variável de ambiente referenciada no código: `DJANGO_SETTINGS_MODULE` (default `setup.settings` em `manage.py`, `setup/wsgi.py`, `setup/asgi.py`). Não há `.env` nem `.env.example`. Banco: SQLite (`django.db.backends.sqlite3`, arquivo `db.sqlite3`, ignorado no `.gitignore`).
-
-## 🚀 Instalando api_cidades
-
-Para instalar o api_cidades, siga estas etapas:
-
-```bash
-pip install -r requirements.txt
-```
-
-Há migration inicial em `cities/migrations/0001_initial.py`. Aplicá-la com `python manage.py migrate` é o fluxo padrão do Django; o comando **não está scriptado** no projeto.
-
-## ☕ Usando api_cidades
-
-Para usar o api_cidades, siga estas etapas (comandos citados em `CLAUDE.MD`):
-
-```bash
-python manage.py check
-python manage.py test
-```
-
-Servidor HTTP local, host e porta:
-
-> ⚠️ Não identificado no código — confirmar com o time. Não há Makefile, script de start nem `runserver` documentado no repositório.
-
-Dados de exemplo: fixture `cities/fixtures/cities.json` (`model`: `cities.city`, campo `name`).
-
-### Endpoints
-
-Prefixo `api/` (`setup/urls.py`). Recurso `cities` no `DefaultRouter` (`cities/urls.py`). ViewSet somente leitura (`cities/views.py`).
-
-| Método | Rota | Descrição | Auth |
-|---|---|---|---|
-| GET | `/api/cities/` | Lista cidades | nenhuma configuração explícita |
-| GET | `/api/cities/{id}/` | Detalhe de uma cidade | nenhuma configuração explícita |
-| — | `/admin/` | Admin Django | auth padrão do Django |
-
-`City` não está registrado em `cities/admin.py`. Sem paginação, permissões ou autenticação customizadas no settings.
-
-### Modelo `City`
-
-| Campo | Tipo | Notas |
+| Package | Verion | In Project |
 |---|---|---|
-| `id` | `BigAutoField` | PK (Django) |
-| `name` | `CharField(max_length=100)` | — |
+| Django | 6.1.1 | Framework web; ORM, admin, migrations e `manage.py` |
+| djangorestframework | 3.18.1 | API REST (`ViewSet`, `DefaultRouter`, serializers, `APITestCase`) |
 
-`Meta.ordering = ["name"]`. Sem relações com outros models.
+<h3 id="cloning">Cloning</h3>
 
-### Testes
+```bash
+git clone https://github.com/eduBortotowski/api_cidades.git
+cd api_cidades
+```
 
-Arquivo: `cities/tests.py` (`APITestCase`).
+<h3 id="starting">Starting</h3>
 
-| Caso | O que valida |
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+URL running: `http://127.0.0.1:8000/`.
+
+
+<h2 id="routes">📍 API Endpoints</h2>
+
+| Route | Description |
 |---|---|
-| `test_list_empty_returns_200` | `GET /api/cities/` → 200 e `[]` |
-| `test_list_with_items_returns_200` | lista com itens, 200, ordem `Olinda`, `Recife` |
+| <kbd>/api/cities/</kbd> | Returns list of Cities — [details](#get-cities-list) |
+| <kbd>/api/cities/{id}/</kbd> | Returns details of city — [details](#get-cities-detail) |
 
-Não há teste de detalhe (`/api/cities/{id}/`).
+- <h3 id="get-cities-list">GET /api/cities/</h3>
 
-## 📫 Contribuindo para api_cidades
+**RESPONSE**
 
-> ⚠️ Não identificado no código — confirmar com o time. Não há `CONTRIBUTING.md` nem fluxo de contribuição definido no repositório.
+```json
+[
+  {
+    "id": 1,
+    "name": "Olinda"
+  },
+  {
+    "id": 2,
+    "name": "Recife"
+  }
+]
+```
 
-Documentação genérica do GitHub (não é deste projeto): [como criar uma solicitação pull](https://docs.github.com/pt/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request).
+<h3 id="get-cities-detail">GET /api/cities/{id}/</h3>
 
-## 🤝 Colaboradores
+**RESPONSE**
 
-Agradecemos às seguintes pessoas que contribuíram para este projeto:
+```json
+{
+  "id": 1,
+  "name": "Recife"
+}
+```
+
+<h2 id="colab">🤝 Collaborators</h2>
 
 <table>
   <tr>
@@ -130,12 +106,6 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
   </tr>
 </table>
 
-Fonte: `git log` (`Eduardo Bortowski de Sousa`) e remote `git@github.com:eduBortotowski/api_cidades.git`.
+<h2 id="contribute">📝 License</h2>
 
-## 😄 Seja um dos contribuidores
-
-> ⚠️ Não identificado no código — confirmar com o time. Arquivo `CONTRIBUTING.md` inexistente.
-
-## 📝 Licença
-
-> ⚠️ Não identificado no código — confirmar com o time. Não há `LICENSE` nem `LICENSE.md`.
+This API was created for study purposes. No commercial license.
