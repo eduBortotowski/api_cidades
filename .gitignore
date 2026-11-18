@@ -223,3 +223,6 @@ __marimo__/
 # Claude e Cursor
 .cursor/
 .claude/
+
+# Ignorando arquivo settings-old
+setup/settings-old.py
